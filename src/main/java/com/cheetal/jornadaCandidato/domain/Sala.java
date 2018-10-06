@@ -1,10 +1,11 @@
 package com.cheetal.jornadaCandidato.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +17,10 @@ public class Sala implements Serializable {
     private Integer id;
     private String descricao;
     private Integer capacidade;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "sala")
+    private List<CalendarioEtapa> calendarioEtapas = new ArrayList<>();
 
     public Sala() {
     }
@@ -48,6 +53,14 @@ public class Sala implements Serializable {
 
     public void setCapacidade(Integer capacidade) {
         this.capacidade = capacidade;
+    }
+
+    public List<CalendarioEtapa> getCalendarioEtapas() {
+        return calendarioEtapas;
+    }
+
+    public void setCalendarioEtapas(List<CalendarioEtapa> calendarioEtapas) {
+        this.calendarioEtapas = calendarioEtapas;
     }
 
     @Override

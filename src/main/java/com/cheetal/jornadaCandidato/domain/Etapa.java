@@ -1,7 +1,11 @@
 package com.cheetal.jornadaCandidato.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +20,11 @@ public class Etapa implements Serializable {
     @ManyToOne
     @JoinColumn(name = "processoSeletivo_id")
     private ProcessoSeletivo processoSeletivo;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "etapa")
+    private List<CalendarioEtapa> calendarioEtapas = new ArrayList<>();
 
     public Etapa() {
     }
@@ -48,6 +57,14 @@ public class Etapa implements Serializable {
 
     public void setProcessoSeletivo(ProcessoSeletivo processoSeletivo) {
         this.processoSeletivo = processoSeletivo;
+    }
+
+    public List<CalendarioEtapa> getCalendarioEtapas() {
+        return calendarioEtapas;
+    }
+
+    public void setCalendarioEtapas(List<CalendarioEtapa> calendarioEtapas) {
+        this.calendarioEtapas = calendarioEtapas;
     }
 
     @Override
