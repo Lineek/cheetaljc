@@ -26,6 +26,14 @@ public class Etapa implements Serializable {
     @OneToMany(mappedBy = "etapa")
     private List<CalendarioEtapa> calendarioEtapas = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "etapa")
+    private List<Vestibulando> vestibulandos = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "etapa")
+    private List<Avaliacao> avaliacaos = new ArrayList<>();
+
     public Etapa() {
     }
 
@@ -65,6 +73,22 @@ public class Etapa implements Serializable {
 
     public void setCalendarioEtapas(List<CalendarioEtapa> calendarioEtapas) {
         this.calendarioEtapas = calendarioEtapas;
+    }
+
+    public List<Vestibulando> getVestibulandos() {
+        return vestibulandos;
+    }
+
+    public void setVestibulandos(List<Vestibulando> vestibulandos) {
+        this.vestibulandos = vestibulandos;
+    }
+
+    public List<Avaliacao> getAvaliacaos() {
+        return avaliacaos;
+    }
+
+    public void setAvaliacoes(List<Avaliacao> avaliacaos) {
+        this.avaliacaos = avaliacaos;
     }
 
     @Override

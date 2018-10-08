@@ -1,39 +1,34 @@
 package com.cheetal.jornadaCandidato.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class CalendarioEtapa implements Serializable {
+public class Avaliacao implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private Date dataProva;
+    private String descricao;
 
     @ManyToOne
     @JoinColumn(name = "etapa_id")
     private Etapa etapa;
 
-    @ManyToOne
-    @JoinColumn(name = "sala_id")
-    private Sala sala;
+    private Integer notaMaxima;
+    private Double peso;
 
-    public CalendarioEtapa() {
+    public Avaliacao() {
     }
 
-    public CalendarioEtapa(Integer id, Date dataProva, Etapa etapa, Sala sala) {
+    public Avaliacao(Integer id, String descricao, Etapa etapa, Integer notaMaxima, Double peso) {
         this.id = id;
-        this.dataProva = dataProva;
+        this.descricao = descricao;
         this.etapa = etapa;
-        this.sala = sala;
+        this.notaMaxima = notaMaxima;
+        this.peso = peso;
     }
 
     public Integer getId() {
@@ -44,14 +39,13 @@ public class CalendarioEtapa implements Serializable {
         this.id = id;
     }
 
-    public Date getDataProva() {
-        return dataProva;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDataProva(Date dataProva) {
-        this.dataProva = dataProva;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
-
     public Etapa getEtapa() {
         return etapa;
     }
@@ -60,20 +54,28 @@ public class CalendarioEtapa implements Serializable {
         this.etapa = etapa;
     }
 
-    public Sala getSala() {
-        return sala;
+    public Integer getNotaMaxima() {
+        return notaMaxima;
     }
 
-    public void setSala(Sala sala) {
-        this.sala = sala;
+    public void setNotaMaxima(Integer notaMaxima) {
+        this.notaMaxima = notaMaxima;
+    }
+
+    public Double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CalendarioEtapa that = (CalendarioEtapa) o;
-        return Objects.equals(id, that.id);
+        Avaliacao avaliacao = (Avaliacao) o;
+        return Objects.equals(id, avaliacao.id);
     }
 
     @Override

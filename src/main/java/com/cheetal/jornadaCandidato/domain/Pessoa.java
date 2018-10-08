@@ -1,11 +1,11 @@
 package com.cheetal.jornadaCandidato.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
+import javax.persistence.*;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
+import java.security.SecureRandom;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +13,7 @@ import java.util.Objects;
 public abstract class Pessoa {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     private String email;
@@ -25,7 +26,7 @@ public abstract class Pessoa {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.senha = getSenhaHash(senha.getBytes(), "SHA-224");
+        this.senha = BCrypt.hashpw(senha, BCrypt.gensalt(12));
     }
 
     public Integer getId() {
@@ -57,22 +58,7 @@ public abstract class Pessoa {
     }
 
     public void setSenha(String senha) {
-        this.senha = getSenhaHash(senha.getBytes(), "SHA-224");
-    }
-
-    // Algorithm can be: MD2, MD5, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512
-    private static String getSenhaHash(byte[] inputByte, String algorithm) {
-        String hashValue = "";
-        try {
-            MessageDigest md = MessageDigest.getInstance(algorithm);
-            md.update(inputByte);
-
-            byte[] digestBytes = md.digest();
-            hashValue = DatatypeConverter.printHexBinary(digestBytes).toLowerCase();
-        } catch (Exception e) {
-
-        }
-        return hashValue;
+        this.senha = BCrypt.hashpw(senha, BCrypt.gensalt());
     }
 
     @Override
