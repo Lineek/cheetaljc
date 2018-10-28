@@ -4,6 +4,7 @@ import com.cheetal.jornadaCandidato.domain.*;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -25,8 +26,8 @@ public class PessoaVestibulandoDTO implements Serializable {
     @Length(min = 5, message = "O tamanho deve ser entre 5 e 120 caracteres")
     private String senha;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
-    private Origem origem;
+    @Column(nullable = false)
+    private Integer origem;
     private Integer telefone;
 
     @NotEmpty(message = "Preenchimento obrigatório")
@@ -109,11 +110,11 @@ public class PessoaVestibulandoDTO implements Serializable {
         this.senha = senha;
     }
 
-    public Origem getOrigem() {
+    public Integer getOrigem() {
         return origem;
     }
 
-    public void setOrigem(Origem origem) {
+    public void setOrigem(Integer origem) {
         this.origem = origem;
     }
 

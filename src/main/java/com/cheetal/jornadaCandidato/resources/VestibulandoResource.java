@@ -25,7 +25,7 @@ public class VestibulandoResource {
     private PessoaService service;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody PessoaVestibulandoDTO objDto) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody PessoaVestibulandoDTO objDto) throws Exception {
         Pessoa obj = service.fromDTO(objDto);
         obj = service.insertVestibulando((Vestibulando) obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}")

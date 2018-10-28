@@ -9,6 +9,7 @@ import com.cheetal.jornadaCandidato.repositories.EnderecoRepository;
 import com.cheetal.jornadaCandidato.repositories.OrigemRepository;
 import com.cheetal.jornadaCandidato.repositories.PessoaRepository;
 import com.cheetal.jornadaCandidato.services.exception.ObjectNotFoundException;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -41,16 +42,25 @@ public class PessoaService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Etapa.class.getName()));
     }
 
+    public Pessoa findByEmailAndSenha(String email, String senha) {
+        Pessoa obj = repo.findByEmail(email);
+        if (!(BCrypt.checkpw(senha, obj.getSenha()))) {
+            throw new ObjectNotFoundException("Objeto não encontrado! Email: " + email + " Senha: " + senha + ", Tipo: " + Etapa.class.getName());
+        }
+        return obj;
+    }
+
     public Pessoa insert(Pessoa obj) {
         obj.setId(null);
         return repo.save(obj);
     }
 
     @Transactional
-    public Pessoa insertVestibulando(Vestibulando obj) {
+    public Pessoa insertVestibulando(Vestibulando obj) throws Exception {
         obj.setId(null);
         obj = repo.save(obj);
         enderecoRepository.save(obj.getEndereco());
+        Origem origem = origemRepository.getOne(obj.getOrigem().getId());
         origemRepository.save(obj.getOrigem());
         return obj;
     }
@@ -67,8 +77,8 @@ public class PessoaService {
     public Vestibulando fromDTO(PessoaVestibulandoDTO objDto) {
         Endereco endereco = new Endereco(null, objDto.getLogradouro(), objDto.getCidade(), objDto.getEstado(),
                 objDto.getNumero(), objDto.getComplemento(), objDto.getCep());
-
-        Vestibulando vest = new Vestibulando(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getSenha(), objDto.getOrigem(),
+        Origem origem = origemRepository.getOne(objDto.getOrigem());
+        Vestibulando vest = new Vestibulando(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getSenha(), origem,
                 objDto.getTelefone(), objDto.getRg(), objDto.getCpf(), objDto.getNomeMae(), objDto.getNomePai(),
                 Sexo.toEnum(objDto.getSexo()), endereco, Escolaridade.toEnum(objDto.getEscolaridade()),
                 objDto.getEtapa(), objDto.getCalendarioEtapa());
