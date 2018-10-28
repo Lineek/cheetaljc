@@ -15,8 +15,10 @@ public class Sala implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String descricao;
+    private String nome;
     private Integer capacidade;
+    private Integer numero;
+    private Integer andar;
 
     @JsonIgnore
     @OneToMany(mappedBy = "sala")
@@ -25,10 +27,12 @@ public class Sala implements Serializable {
     public Sala() {
     }
 
-    public Sala(Integer id, String descricao, Integer capacidade) {
+    public Sala(Integer id, String nome, Integer capacidade, Integer numero, Integer andar) {
         this.id = id;
-        this.descricao = descricao;
+        this.nome = nome;
         this.capacidade = capacidade;
+        this.numero = numero;
+        this.andar = andar;
     }
 
     public Integer getId() {
@@ -39,12 +43,28 @@ public class Sala implements Serializable {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getNome() {
+        return nome;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
+
+    public Integer getAndar() {
+        return andar;
+    }
+
+    public void setAndar(Integer andar) {
+        this.andar = andar;
     }
 
     public Integer getCapacidade() {

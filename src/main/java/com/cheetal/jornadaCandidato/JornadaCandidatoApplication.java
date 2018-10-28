@@ -55,8 +55,8 @@ public class JornadaCandidatoApplication implements CommandLineRunner {
         processoSeletivoRepository.saveAll(Arrays.asList(ps1, ps2));
         etapaRepository.saveAll(Arrays.asList(e1, e2));
 
-        Sala s1 = new Sala(null, "3 Andar, Sala 1", 40);
-        Sala s2 = new Sala(null, "3 Andar, Sala 2", 60);
+        Sala s1 = new Sala(null, "Digital", 40, 2, 3);
+        Sala s2 = new Sala(null, "Digital", 60, 1, 3);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         CalendarioEtapa ce1 = new CalendarioEtapa(null, sdf.parse("01/01/2019 00:00"), e1, s1);
