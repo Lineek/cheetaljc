@@ -1,11 +1,8 @@
 package com.cheetal.jornadaCandidato.resources;
 
-import com.cheetal.jornadaCandidato.domain.Endereco;
-import com.cheetal.jornadaCandidato.domain.Etapa;
 import com.cheetal.jornadaCandidato.domain.Pessoa;
 import com.cheetal.jornadaCandidato.domain.Vestibulando;
 import com.cheetal.jornadaCandidato.dto.PessoaVestibulandoDTO;
-import com.cheetal.jornadaCandidato.repositories.PessoaRepository;
 import com.cheetal.jornadaCandidato.services.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +17,15 @@ import java.util.List;
 @RequestMapping(value = "/vestibulando")
 public class VestibulandoResource {
 
+    private final PessoaService service;
+
     @Autowired
-    private PessoaService service;
+    public VestibulandoResource(PessoaService service) {
+        this.service = service;
+    }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody PessoaVestibulandoDTO objDto) throws Exception {
+    public ResponseEntity<Void> insert(@Valid @RequestBody PessoaVestibulandoDTO objDto) {
         Pessoa obj = service.fromDTO(objDto);
         obj = service.insertVestibulando((Vestibulando) obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}")

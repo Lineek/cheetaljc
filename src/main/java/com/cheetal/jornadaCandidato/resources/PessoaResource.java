@@ -2,7 +2,6 @@ package com.cheetal.jornadaCandidato.resources;
 
 import com.cheetal.jornadaCandidato.domain.Pessoa;
 import com.cheetal.jornadaCandidato.dto.PessoaDTO;
-import com.cheetal.jornadaCandidato.services.EtapaService;
 import com.cheetal.jornadaCandidato.services.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,14 +9,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/pessoa")
 public class PessoaResource {
 
+    private final PessoaService service;
+
     @Autowired
-    private PessoaService service;
+    public PessoaResource(PessoaService service) {
+        this.service = service;
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Pessoa> find(@PathVariable Integer id) {
@@ -34,7 +36,7 @@ public class PessoaResource {
     @RequestMapping(method=RequestMethod.GET)
     public ResponseEntity<List<Pessoa>> findAll() {
         List<Pessoa> list = service.findAll();
-        List<PessoaDTO> listDto = list.stream().map(PessoaDTO::new).collect(Collectors.toList());
+//        List<PessoaDTO> listDto = list.stream().map(PessoaDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(list);
     }
 

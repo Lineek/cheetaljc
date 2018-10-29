@@ -20,26 +20,26 @@ import java.util.Optional;
 @Service
 public class PessoaService {
 
-    @Autowired
-    private PessoaRepository repo;
+    private final PessoaRepository repo;
+
+    private final EnderecoRepository enderecoRepository;
+
+    private final OrigemRepository origemRepository;
+
+    private final VestibulandoRepository vestibulandoRepository;
+
+    private final EtapaRepository etapaRepository;
+
+    private final CalendarioEtapaRepository calendarioEtapaRepository;
 
     @Autowired
-    private EnderecoRepository enderecoRepository;
-
-    @Autowired
-    private OrigemRepository origemRepository;
-
-    @Autowired
-    private VestibulandoRepository vestibulandoRepository;
-
-    @Autowired
-    private EtapaRepository etapaRepository;
-
-    @Autowired
-    private CalendarioEtapaRepository calendarioEtapaRepository;
-
-    public PessoaService(PessoaRepository repo) {
+    public PessoaService(PessoaRepository repo, EnderecoRepository enderecoRepository, OrigemRepository origemRepository, VestibulandoRepository vestibulandoRepository, EtapaRepository etapaRepository, CalendarioEtapaRepository calendarioEtapaRepository) {
         this.repo = repo;
+        this.enderecoRepository = enderecoRepository;
+        this.origemRepository = origemRepository;
+        this.vestibulandoRepository = vestibulandoRepository;
+        this.etapaRepository = etapaRepository;
+        this.calendarioEtapaRepository = calendarioEtapaRepository;
     }
 
     public Pessoa find(Integer id) {
@@ -61,7 +61,7 @@ public class PessoaService {
     }
 
     @Transactional
-    public Pessoa insertVestibulando(Vestibulando obj) throws Exception {
+    public Pessoa insertVestibulando(Vestibulando obj) {
         obj.setId(null);
         obj = repo.save(obj);
         enderecoRepository.save(obj.getEndereco());
@@ -93,12 +93,11 @@ public class PessoaService {
         Endereco endereco = new Endereco(null, objDto.getLogradouro(), objDto.getCidade(), objDto.getEstado(),
                 objDto.getNumero(), objDto.getComplemento(), objDto.getCep());
         Origem origem = origemRepository.getOne(objDto.getOrigem());
-        Vestibulando vest = new Vestibulando(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getSenha(), origem,
+        return new Vestibulando(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getSenha(), origem,
                 objDto.getTelefone(), objDto.getRg(), objDto.getCpf(), objDto.getNomeMae(), objDto.getNomePai(),
                 Sexo.toEnum(objDto.getSexo()), endereco, Escolaridade.toEnum(objDto.getEscolaridade()),
                 objDto.getEtapa(), objDto.getCalendarioEtapa());
 
-        return vest;
     }
 
     public Administrador fromDTO() {
