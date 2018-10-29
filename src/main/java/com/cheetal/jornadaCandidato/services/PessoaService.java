@@ -3,15 +3,11 @@ package com.cheetal.jornadaCandidato.services;
 import com.cheetal.jornadaCandidato.domain.*;
 import com.cheetal.jornadaCandidato.domain.enums.Escolaridade;
 import com.cheetal.jornadaCandidato.domain.enums.Sexo;
-import com.cheetal.jornadaCandidato.dto.PessoaDTO;
 import com.cheetal.jornadaCandidato.dto.PessoaVestibulandoDTO;
-import com.cheetal.jornadaCandidato.repositories.EnderecoRepository;
-import com.cheetal.jornadaCandidato.repositories.OrigemRepository;
-import com.cheetal.jornadaCandidato.repositories.PessoaRepository;
+import com.cheetal.jornadaCandidato.repositories.*;
 import com.cheetal.jornadaCandidato.services.exception.ObjectNotFoundException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -32,6 +28,15 @@ public class PessoaService {
 
     @Autowired
     private OrigemRepository origemRepository;
+
+    @Autowired
+    private VestibulandoRepository vestibulandoRepository;
+
+    @Autowired
+    private EtapaRepository etapaRepository;
+
+    @Autowired
+    private CalendarioEtapaRepository calendarioEtapaRepository;
 
     public PessoaService(PessoaRepository repo) {
         this.repo = repo;
@@ -72,6 +77,16 @@ public class PessoaService {
     public Page<Pessoa> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
+    }
+
+    public List<Vestibulando> findAllByEtapa(Integer idEtapa) {
+        Optional<Etapa> etapa = etapaRepository.findById(idEtapa);
+        return vestibulandoRepository.findByEtapa(etapa);
+    }
+
+    public List<Vestibulando> findAllByCalendarioEtapa(Integer idCalEtapa) {
+        Optional<CalendarioEtapa> calEtapa = calendarioEtapaRepository.findById(idCalEtapa);
+        return vestibulandoRepository.findByCalendarioEtapa(calEtapa);
     }
 
     public Vestibulando fromDTO(PessoaVestibulandoDTO objDto) {

@@ -25,7 +25,7 @@ public class PessoaResource {
         return ResponseEntity.ok().body(obj);
     }
 
-    @RequestMapping(value = "/pessoa", method = RequestMethod.GET)
+    @RequestMapping(value = "/validacao", method = RequestMethod.GET)
     public ResponseEntity<Pessoa> find(@RequestParam String email, @RequestParam String senha) {
         Pessoa obj = service.findByEmailAndSenha(email, senha);
         return ResponseEntity.ok().body(obj);

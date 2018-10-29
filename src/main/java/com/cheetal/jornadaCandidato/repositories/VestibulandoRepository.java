@@ -7,12 +7,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface VestibulandoRepository extends JpaRepository<Vestibulando, Integer>{
 
     @Transactional(readOnly = true)
-    Vestibulando findByEtapa(Etapa etapa);
+    List<Vestibulando> findByEtapa(Optional<Etapa> etapa);
 
     @Transactional(readOnly = true)
-    Vestibulando findByCalendarioEtapa(CalendarioEtapa calendarioEtapa);
+    List<Vestibulando> findByCalendarioEtapa(Optional<CalendarioEtapa> calendarioEtapa);
 }
