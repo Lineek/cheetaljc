@@ -21,7 +21,6 @@ public class Etapa implements Serializable {
     @JoinColumn(name = "processoSeletivo_id")
     private ProcessoSeletivo processoSeletivo;
 
-
     @JsonIgnore
     @OneToMany(mappedBy = "etapa")
     private List<CalendarioEtapa> calendarioEtapas = new ArrayList<>();
