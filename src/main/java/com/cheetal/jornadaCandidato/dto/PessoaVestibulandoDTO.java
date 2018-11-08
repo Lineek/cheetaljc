@@ -39,6 +39,7 @@ public class PessoaVestibulandoDTO implements Serializable {
     private String nomeMae;
     private String nomePai;
     private Integer sexo;
+    private Boolean mudancaEtapa;
     private Endereco endereco;
     private Integer escolaridade;
     private Etapa etapa;
@@ -68,6 +69,7 @@ public class PessoaVestibulandoDTO implements Serializable {
         this.telefone = telefone;
         this.rg = rg;
         this.sexo = sexo;
+        this.mudancaEtapa = mudancaEtapa;
         this.calendarioEtapa = calendarioEtapa;
         this.cpf = cpf;
         this.email = email;
@@ -244,5 +246,13 @@ public class PessoaVestibulandoDTO implements Serializable {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public Boolean getMudancaEtapa() {
+        return mudancaEtapa;
+    }
+
+    public void setMudancaEtapa(Boolean mudancaEtapa) {
+        this.mudancaEtapa = mudancaEtapa;
     }
 }

@@ -81,7 +81,7 @@ public class JornadaCandidatoApplication implements CommandLineRunner {
 
         Origem origem = new Origem(null, "Facebook");
         Pessoa vest1 = new Vestibulando(null, "José Maria", "jmaria@hot.com", "111as2", origem,
-                998989888, "49123058204", "58230490423", "Maria", "José", Sexo.MASCULINO,
+                998989888, "49123058204", "58230490423", "Maria", "José", Sexo.MASCULINO, null,
                 end1, Escolaridade.ENSINO_MEDIO_COMPLETO, null, null);
 
         origemRepository.save(origem);

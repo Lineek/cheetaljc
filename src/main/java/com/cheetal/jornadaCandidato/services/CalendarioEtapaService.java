@@ -1,8 +1,8 @@
 package com.cheetal.jornadaCandidato.services;
 
-import com.cheetal.jornadaCandidato.domain.Etapa;
+import com.cheetal.jornadaCandidato.domain.CalendarioEtapa;
 import com.cheetal.jornadaCandidato.domain.ProcessoSeletivo;
-import com.cheetal.jornadaCandidato.repositories.EtapaRepository;
+import com.cheetal.jornadaCandidato.repositories.CalendarioEtapaRepository;
 import com.cheetal.jornadaCandidato.repositories.ProcessoSeletivoRepository;
 import com.cheetal.jornadaCandidato.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,33 +15,29 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EtapaService {
-    private final EtapaRepository repo;
+public class CalendarioEtapaService {
+    private final CalendarioEtapaRepository repo;
 
     @Autowired
-    private ProcessoSeletivoRepository processoSeletivoRepository;
-
-    @Autowired
-    public EtapaService(EtapaRepository repo) {
+    public CalendarioEtapaService(CalendarioEtapaRepository repo) {
         this.repo = repo;
     }
 
-    public Etapa find(Integer id) {
-        Optional<Etapa> obj = repo.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Etapa.class.getName()));
+    public CalendarioEtapa find(Integer id) {
+        Optional<CalendarioEtapa> obj = repo.findById(id);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + CalendarioEtapa.class.getName()));
     }
 
-    public Etapa insert(Etapa obj) {
+    public CalendarioEtapa insert(CalendarioEtapa obj) {
         obj.setId(null);
-        ProcessoSeletivo processoSeletivo = processoSeletivoRepository.getOne(obj.getProcessoSeletivo().getId());
         return repo.save(obj);
     }
 
-    public List<Etapa> findAll() {
+    public List<CalendarioEtapa> findAll() {
         return repo.findAll();
     }
 
-    public Page<Etapa> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+    public Page<CalendarioEtapa> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
     }

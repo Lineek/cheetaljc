@@ -18,6 +18,7 @@ public class Vestibulando extends Pessoa {
     private String nomeMae;
     private String nomePai;
     private Integer sexo;
+    private Boolean mudancaEtapa;
 
     @OneToOne
     @JoinColumn(name = "endereco_id")
@@ -35,7 +36,7 @@ public class Vestibulando extends Pessoa {
     public Vestibulando() {
     }
 
-    public Vestibulando(Integer id, String nome, String email, String senha, Origem origem, Integer telefone, String rg, String cpf, String nomeMae, String nomePai, Sexo sexo, Endereco endereco, Escolaridade escolaridade, Etapa etapa, CalendarioEtapa calendarioEtapa) {
+    public Vestibulando(Integer id, String nome, String email, String senha, Origem origem, Integer telefone, String rg, String cpf, String nomeMae, String nomePai, Sexo sexo, Boolean mudancaEtapa, Endereco endereco, Escolaridade escolaridade, Etapa etapa, CalendarioEtapa calendarioEtapa) {
         super(id, nome, email, senha);
         this.origem = origem;
         this.telefone = telefone;
@@ -44,6 +45,7 @@ public class Vestibulando extends Pessoa {
         this.nomeMae = nomeMae;
         this.nomePai = nomePai;
         this.sexo = sexo.getCod();
+        this.mudancaEtapa = mudancaEtapa;
         this.endereco = endereco;
         this.escolaridade = escolaridade.getCod();
         this.etapa = etapa;
@@ -136,5 +138,13 @@ public class Vestibulando extends Pessoa {
 
     public void setCalendarioEtapa(CalendarioEtapa calendarioEtapa) {
         this.calendarioEtapa = calendarioEtapa;
+    }
+
+    public Boolean getMudancaEtapa() {
+        return mudancaEtapa;
+    }
+
+    public void setMudancaEtapa(Boolean mudancaEtapa) {
+        this.mudancaEtapa = mudancaEtapa;
     }
 }

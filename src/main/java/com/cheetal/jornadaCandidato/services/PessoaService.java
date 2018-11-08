@@ -95,9 +95,8 @@ public class PessoaService {
         Origem origem = origemRepository.getOne(objDto.getOrigem());
         return new Vestibulando(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getSenha(), origem,
                 objDto.getTelefone(), objDto.getRg(), objDto.getCpf(), objDto.getNomeMae(), objDto.getNomePai(),
-                Sexo.toEnum(objDto.getSexo()), endereco, Escolaridade.toEnum(objDto.getEscolaridade()),
+                Sexo.toEnum(objDto.getSexo()), objDto.getMudancaEtapa(), endereco, Escolaridade.toEnum(objDto.getEscolaridade()),
                 objDto.getEtapa(), objDto.getCalendarioEtapa());
-
     }
 
     public Administrador fromDTO() {
