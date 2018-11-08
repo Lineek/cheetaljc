@@ -1,8 +1,10 @@
 package com.cheetal.jornadaCandidato.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -16,14 +18,18 @@ public class CalendarioEtapa implements Serializable {
     private Integer id;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @NotEmpty(message = "Preenchimento obrigatório")
+    @Length(min = 17, max = 18, message = "O tamanho deve ser entre 17 e 18 caracteres")
     private Date dataProva;
 
     @ManyToOne
     @JoinColumn(name = "etapa_id")
+    @NotEmpty(message = "Preenchimento obrigatório")
     private Etapa etapa;
 
     @ManyToOne
     @JoinColumn(name = "sala_id")
+    @NotEmpty(message = "Preenchimento obrigatório")
     private Sala sala;
 
     public CalendarioEtapa() {

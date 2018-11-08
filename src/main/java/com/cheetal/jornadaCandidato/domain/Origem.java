@@ -1,9 +1,12 @@
 package com.cheetal.jornadaCandidato.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,6 +17,9 @@ public class Origem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotEmpty(message = "Preenchimento obrigatório")
+    @Length(min = 3, message = "O tamanho deve ser entre 3 e 120 caracteres")
     private String opcao;
 
     public Origem() {

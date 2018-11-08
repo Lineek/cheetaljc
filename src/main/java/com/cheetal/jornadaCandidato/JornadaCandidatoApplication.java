@@ -59,7 +59,7 @@ public class JornadaCandidatoApplication implements CommandLineRunner {
         Sala s2 = new Sala(null, "Digital", 60, 1, 3);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        CalendarioEtapa ce1 = new CalendarioEtapa(null, sdf.parse("01/01/2019 00:00"), e1, s1);
+        CalendarioEtapa ce1 = new CalendarioEtapa(null, sdf.parse("01/01/2018 00:00"), e1, s1);
         CalendarioEtapa ce2 = new CalendarioEtapa(null, sdf.parse("01/01/2019 00:00"), e1, s2);
 
         s1.getCalendarioEtapas().addAll(Arrays.asList(ce1));
@@ -81,8 +81,8 @@ public class JornadaCandidatoApplication implements CommandLineRunner {
 
         Origem origem = new Origem(null, "Facebook");
         Pessoa vest1 = new Vestibulando(null, "José Maria", "jmaria@hot.com", "111as2", origem,
-                998989888, "49123058204", "58230490423", "Maria", "José", Sexo.MASCULINO, null,
-                end1, Escolaridade.ENSINO_MEDIO_COMPLETO, null, null);
+                998989888, "49123058204", "58230490423", "Maria", "José", Sexo.MASCULINO,
+                null, end1, Escolaridade.ENSINO_MEDIO_COMPLETO, null, null);
 
         origemRepository.save(origem);
 

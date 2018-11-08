@@ -1,9 +1,15 @@
 package com.cheetal.jornadaCandidato.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.Entity;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Administrador extends Pessoa {
+
+    @NotEmpty(message = "Preenchimento obrigatório")
+    @Length(min = 2, message = "O tamanho deve ser entre 2 e 120 caracteres")
     private String cargo;
 
     public Administrador() {

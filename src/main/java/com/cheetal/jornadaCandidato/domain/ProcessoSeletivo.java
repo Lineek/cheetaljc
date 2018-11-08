@@ -1,8 +1,10 @@
 package com.cheetal.jornadaCandidato.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,9 @@ public class ProcessoSeletivo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotEmpty(message = "Preenchimento obrigatório")
+    @Length(min = 6, message = "O tamanho deve ser entre 6 e 120 caracteres")
     private String descricao;
 
     @JsonIgnore
