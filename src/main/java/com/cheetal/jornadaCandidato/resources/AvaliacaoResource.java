@@ -1,7 +1,7 @@
 package com.cheetal.jornadaCandidato.resources;
 
-import com.cheetal.jornadaCandidato.domain.Sala;
-import com.cheetal.jornadaCandidato.services.SalaService;
+import com.cheetal.jornadaCandidato.domain.Avaliacao;
+import com.cheetal.jornadaCandidato.services.AvaliacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -13,40 +13,41 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/sala")
-public class SalaResource {
+@RequestMapping(value = "/avaliacao")
+public class AvaliacaoResource {
 
-    private final SalaService service;
+    private final AvaliacaoService service;
 
     @Autowired
-    public SalaResource(SalaService service) {
+    public AvaliacaoResource(AvaliacaoService service) {
         this.service = service;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Sala> find(@PathVariable Integer id) {
-        Sala obj = service.find(id);
+    public ResponseEntity<Avaliacao> find(@PathVariable Integer id) {
+        Avaliacao obj = service.find(id);
         return ResponseEntity.ok().body(obj);
     }
 
+
     @RequestMapping(method=RequestMethod.GET)
-    public ResponseEntity<List<Sala>> findAll() {
-        List<Sala> list = service.findAll();
+    public ResponseEntity<List<Avaliacao>> findAll() {
+        List<Avaliacao> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @RequestMapping(value = "/page", method=RequestMethod.GET)
-    public ResponseEntity<Page<Sala>> findPage(
+    public ResponseEntity<Page<Avaliacao>> findPage(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
-            @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+            @RequestParam(value = "orderBy", defaultValue = "descricao") String orderBy,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
-        Page<Sala> list = service.findPage(page, linesPerPage, orderBy, direction);
+        Page<Avaliacao> list = service.findPage(page, linesPerPage, orderBy, direction);
         return ResponseEntity.ok().body(list);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody Sala obj) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody Avaliacao obj) {
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}")
                 .buildAndExpand(obj.getId()).toUri();
@@ -54,7 +55,7 @@ public class SalaResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody Sala obj) {
+    public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody Avaliacao obj) {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
@@ -64,5 +65,11 @@ public class SalaResource {
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/etapa/{idEtapa}", method = RequestMethod.GET)
+    public ResponseEntity<List<Avaliacao>> findAllByEtapa(@PathVariable Integer idEtapa) {
+        List<Avaliacao> list = service.findByEtapa(idEtapa);
+        return ResponseEntity.ok().body(list);
     }
 }

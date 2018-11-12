@@ -1,9 +1,8 @@
 package com.cheetal.jornadaCandidato.services;
 
-import com.cheetal.jornadaCandidato.domain.CalendarioEtapa;
+import com.cheetal.jornadaCandidato.domain.Avaliacao;
 import com.cheetal.jornadaCandidato.domain.Etapa;
-import com.cheetal.jornadaCandidato.domain.ProcessoSeletivo;
-import com.cheetal.jornadaCandidato.repositories.CalendarioEtapaRepository;
+import com.cheetal.jornadaCandidato.repositories.AvaliacaoRepository;
 import com.cheetal.jornadaCandidato.repositories.EtapaRepository;
 import com.cheetal.jornadaCandidato.repositories.ProcessoSeletivoRepository;
 import com.cheetal.jornadaCandidato.services.exception.ObjectNotFoundException;
@@ -17,44 +16,51 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CalendarioEtapaService {
+public class AvaliacaoService {
+    private final AvaliacaoRepository repo;
+
+    @Autowired
+    private ProcessoSeletivoRepository processoSeletivoRepository;
 
     @Autowired
     private EtapaRepository etapaRepository;
 
-    private final CalendarioEtapaRepository repo;
-
     @Autowired
-    public CalendarioEtapaService(CalendarioEtapaRepository repo) {
+    public AvaliacaoService(AvaliacaoRepository repo) {
         this.repo = repo;
     }
 
-    public CalendarioEtapa find(Integer id) {
-        Optional<CalendarioEtapa> obj = repo.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + CalendarioEtapa.class.getName()));
+    public Avaliacao find(Integer id) {
+        Optional<Avaliacao> obj = repo.findById(id);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Avaliacao.class.getName()));
     }
 
-    public CalendarioEtapa insert(CalendarioEtapa obj) {
+    public Avaliacao insert(Avaliacao obj) {
         obj.setId(null);
         return repo.save(obj);
     }
 
-    public List<CalendarioEtapa> findAll() {
+    public Avaliacao update(Avaliacao obj) {
+        find(obj.getId());
+        return repo.save(obj);
+    }
+
+    public List<Avaliacao> findAll() {
         return repo.findAll();
     }
 
-    public Page<CalendarioEtapa> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+    public Page<Avaliacao> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
     }
 
-    public List<CalendarioEtapa> findByEtapa(Integer idEtapa) {
+    public List<Avaliacao> findByEtapa(Integer idEtapa) {
         Optional<Etapa> etapa = etapaRepository.findById(idEtapa);
         return repo.findByEtapa(etapa);
     }
 
-    public CalendarioEtapa update(CalendarioEtapa obj) {
-        find(obj.getId());
-        return repo.save(obj);
+    public void delete(Integer id) {
+        find(id);
+        repo.deleteById(id);
     }
 }

@@ -103,6 +103,16 @@ public class PessoaService {
         return new Administrador();
     }
 
+    public Vestibulando update(Vestibulando obj) {
+        find(obj.getId());
+        return repo.save(obj);
+    }
+
+    public void delete(Integer id) {
+        Pessoa obj = find(id);
+        repo.deleteById(id);
+    }
+
     private void updateData(Pessoa newObj, Pessoa obj) {
         newObj.setNome(obj.getNome());
         newObj.setEmail(obj.getEmail());

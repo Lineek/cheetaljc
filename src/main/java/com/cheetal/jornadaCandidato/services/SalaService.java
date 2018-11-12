@@ -39,4 +39,14 @@ public class SalaService {
         obj.setId(null);
         return repo.save(obj);
     }
+
+    public Sala update(Sala obj) {
+        find(obj.getId());
+        return repo.save(obj);
+    }
+
+    public void delete(Integer id) {
+        Sala obj = find(id);
+        repo.deleteById(id);
+    }
 }

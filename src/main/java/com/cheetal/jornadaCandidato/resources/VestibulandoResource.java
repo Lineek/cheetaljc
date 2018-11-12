@@ -44,4 +44,18 @@ public class VestibulandoResource {
         List<Vestibulando> list = service.findAllByCalendarioEtapa(id_calendario_etapa);
         return ResponseEntity.ok().body(list);
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody PessoaVestibulandoDTO obj) {
+        obj.setId(id);
+        Vestibulando objDto = service.fromDTO(obj);
+        service.update(objDto);
+        return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

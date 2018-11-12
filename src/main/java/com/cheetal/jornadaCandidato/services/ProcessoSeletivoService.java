@@ -26,4 +26,14 @@ public class ProcessoSeletivoService {
         obj.setId(null);
         return repo.save(obj);
     }
+
+    public ProcessoSeletivo update(ProcessoSeletivo obj) {
+        find(obj.getId());
+        return repo.save(obj);
+    }
+
+    public void delete(Integer id) {
+        ProcessoSeletivo obj = find(id);
+        repo.deleteById(id);
+    }
 }

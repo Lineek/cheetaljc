@@ -18,17 +18,17 @@ public class Sala implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
-    @Length(min = 2, message = "O tamanho deve ser entre 2 e 120 caracteres")
+//    @NotEmpty(message = "Preenchimento obrigatório")
+//    @Length(min = 2, message = "O tamanho deve ser entre 2 e 120 caracteres")
     private String nome;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
+//    @NotEmpty(message = "Preenchimento obrigatório")
     private Integer capacidade;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
+//    @NotEmpty(message = "Preenchimento obrigatório")
     private Integer numero;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
+//    @NotEmpty(message = "Preenchimento obrigatório")
     private Integer andar;
 
     @JsonIgnore

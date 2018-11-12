@@ -18,8 +18,8 @@ public class Origem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
-    @Length(min = 3, message = "O tamanho deve ser entre 3 e 120 caracteres")
+//    @NotEmpty(message = "Preenchimento obrigatório")
+//    @Length(min = 3, message = "O tamanho deve ser entre 3 e 120 caracteres")
     private String opcao;
 
     public Origem() {

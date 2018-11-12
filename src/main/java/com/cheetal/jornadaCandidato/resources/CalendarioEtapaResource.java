@@ -53,4 +53,10 @@ public class CalendarioEtapaResource {
                 .buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @RequestMapping(value = "/etapa/{idEtapa}", method = RequestMethod.GET)
+    public ResponseEntity<List<CalendarioEtapa>> findAllByEtapa(@PathVariable Integer idEtapa) {
+        List<CalendarioEtapa> list = service.findByEtapa(idEtapa);
+        return ResponseEntity.ok().body(list);
+    }
 }

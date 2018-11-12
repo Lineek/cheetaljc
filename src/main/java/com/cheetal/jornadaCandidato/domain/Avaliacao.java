@@ -3,6 +3,8 @@ package com.cheetal.jornadaCandidato.domain;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Objects;
@@ -21,13 +23,12 @@ public class Avaliacao implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "etapa_id")
-    @NotEmpty(message = "Preenchimento obrigatório")
     private Etapa etapa;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
+    @Min(message = "Preenchimento obrigatório", value = 0)
     private Integer notaMaxima;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
+    @Min(message = "Preenchimento obrigatório", value = 0)
     private Double peso;
 
     public Avaliacao() {

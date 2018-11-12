@@ -18,13 +18,13 @@ public class Etapa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
-    @Length(min = 6, message = "O tamanho deve ser entre 6 e 120 caracteres")
+//    @NotEmpty(message = "Preenchimento obrigatório")
+//    @Length(min = 6, message = "O tamanho deve ser entre 6 e 120 caracteres")
     private String descricao;
 
     @ManyToOne
     @JoinColumn(name = "processoSeletivo_id")
-    @NotEmpty(message = "Preenchimento obrigatório")
+//    @NotEmpty(message = "Preenchimento obrigatório")
     private ProcessoSeletivo processoSeletivo;
 
     @JsonIgnore

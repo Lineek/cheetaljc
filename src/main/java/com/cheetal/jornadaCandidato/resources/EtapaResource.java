@@ -29,7 +29,6 @@ public class EtapaResource {
         return ResponseEntity.ok().body(obj);
     }
 
-
     @RequestMapping(method=RequestMethod.GET)
     public ResponseEntity<List<Etapa>> findAll() {
         List<Etapa> list = service.findAll();
@@ -52,5 +51,18 @@ public class EtapaResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}")
                 .buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody Etapa obj) {
+        obj.setId(id);
+        obj = service.update(obj);
+        return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
