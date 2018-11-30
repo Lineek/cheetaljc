@@ -6,6 +6,7 @@ import com.cheetal.jornadaCandidato.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,6 +21,10 @@ public class ProcessoSeletivoService {
     public ProcessoSeletivo find(Integer id) {
         Optional<ProcessoSeletivo> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + ProcessoSeletivo.class.getName()));
+    }
+
+    public List<ProcessoSeletivo> findAll() {
+        return repo.findAll();
     }
 
     public ProcessoSeletivo insert(ProcessoSeletivo obj) {

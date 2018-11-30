@@ -3,8 +3,11 @@ package com.cheetal.jornadaCandidato.domain;
 
 import com.cheetal.jornadaCandidato.domain.enums.Escolaridade;
 import com.cheetal.jornadaCandidato.domain.enums.Sexo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Vestibulando extends Pessoa {
@@ -32,6 +35,10 @@ public class Vestibulando extends Pessoa {
     @ManyToOne
     @JoinColumn(name = "caledarioEtapa_id")
     private CalendarioEtapa calendarioEtapa;
+
+    @JsonIgnore
+    @OneToMany
+    private List<Nota> notas = new ArrayList<>();
 
     public Vestibulando() {
     }

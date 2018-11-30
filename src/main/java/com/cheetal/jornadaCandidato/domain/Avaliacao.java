@@ -1,5 +1,6 @@
 package com.cheetal.jornadaCandidato.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -7,6 +8,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -30,6 +33,10 @@ public class Avaliacao implements Serializable {
 
     @Min(message = "Preenchimento obrigatório", value = 0)
     private Double peso;
+
+    @JsonIgnore
+    @OneToMany
+    private List<Nota> notas = new ArrayList<>();
 
     public Avaliacao() {
     }

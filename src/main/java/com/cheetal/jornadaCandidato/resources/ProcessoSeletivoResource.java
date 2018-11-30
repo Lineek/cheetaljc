@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/processoseletivo")
@@ -25,6 +26,12 @@ public class ProcessoSeletivoResource {
     public ResponseEntity<ProcessoSeletivo> find(@PathVariable Integer id) {
         ProcessoSeletivo obj = service.find(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @RequestMapping(method=RequestMethod.GET)
+    public ResponseEntity<List<ProcessoSeletivo>> findAll() {
+        List<ProcessoSeletivo> list = service.findAll();
+        return ResponseEntity.ok().body(list);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)

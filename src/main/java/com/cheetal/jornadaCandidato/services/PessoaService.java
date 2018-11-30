@@ -90,7 +90,7 @@ public class PessoaService {
     }
 
     public Vestibulando fromDTO(PessoaVestibulandoDTO objDto) {
-        Endereco endereco = new Endereco(null, objDto.getLogradouro(), objDto.getCidade(), objDto.getEstado(),
+        Endereco endereco = new Endereco(objDto.getId(), objDto.getLogradouro(), objDto.getCidade(), objDto.getEstado(),
                 objDto.getNumero(), objDto.getComplemento(), objDto.getCep());
         Origem origem = origemRepository.getOne(objDto.getOrigem());
         return new Vestibulando(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getSenha(), origem,
@@ -104,6 +104,9 @@ public class PessoaService {
     }
 
     public Vestibulando update(Vestibulando obj) {
+        Endereco end = obj.getEndereco();
+        end.setId(obj.getId());
+        enderecoRepository.save(end);
         find(obj.getId());
         return repo.save(obj);
     }

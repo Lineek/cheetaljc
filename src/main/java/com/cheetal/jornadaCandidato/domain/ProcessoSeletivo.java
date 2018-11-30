@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,6 +18,10 @@ public class ProcessoSeletivo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    private Date dataInicio;
+
+    private Date dateFim;
 
 //    @NotEmpty(message = "Preenchimento obrigatório")
 //    @Length(min = 6, message = "O tamanho deve ser entre 6 e 120 caracteres")
@@ -40,6 +45,22 @@ public class ProcessoSeletivo implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Date getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public Date getDateFim() {
+        return dateFim;
+    }
+
+    public void setDateFim(Date dateFim) {
+        this.dateFim = dateFim;
     }
 
     public String getDescricao() {
