@@ -48,8 +48,15 @@ public class VestibulandoResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody PessoaVestibulandoDTO obj) {
         obj.setId(id);
-        Vestibulando objDto = service.fromDTO(obj);
+        Vestibulando objDto = service.fromDtoWithSenhaByspass(obj);
         service.update(objDto);
+        return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/mudancaEtapa/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> updateMudancaEtapa(@PathVariable Integer id) {
+        Vestibulando obj = service.findVestib(1);
+        obj.setMudancaEtapa(!obj.getMudancaEtapa());
         return ResponseEntity.noContent().build();
     }
 

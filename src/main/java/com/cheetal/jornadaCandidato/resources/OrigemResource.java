@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/sala")
+@RequestMapping(value = "/origem")
 public class OrigemResource {
 
     private final OrigemService service;

@@ -47,6 +47,11 @@ public class PessoaService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Etapa.class.getName()));
     }
 
+    public Vestibulando findVestib(Integer id) {
+        Optional<Vestibulando> obj = vestibulandoRepository.findById(id);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Etapa.class.getName()));
+    }
+
     public Pessoa findByEmailAndSenha(String email, String senha) {
         Pessoa obj = repo.findByEmail(email);
         if (!(BCrypt.checkpw(senha, obj.getSenha()))) {
@@ -97,6 +102,18 @@ public class PessoaService {
                 objDto.getTelefone(), objDto.getRg(), objDto.getCpf(), objDto.getNomeMae(), objDto.getNomePai(),
                 Sexo.toEnum(objDto.getSexo()), objDto.getMudancaEtapa(), endereco, Escolaridade.toEnum(objDto.getEscolaridade()),
                 objDto.getEtapa(), objDto.getCalendarioEtapa());
+    }
+
+    public Vestibulando fromDtoWithSenhaByspass(PessoaVestibulandoDTO objDto) {
+        Endereco endereco = new Endereco(objDto.getId(), objDto.getLogradouro(), objDto.getCidade(), objDto.getEstado(),
+                objDto.getNumero(), objDto.getComplemento(), objDto.getCep());
+        Origem origem = origemRepository.getOne(objDto.getOrigem());
+        Vestibulando obj = new Vestibulando(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getSenha(), origem,
+                objDto.getTelefone(), objDto.getRg(), objDto.getCpf(), objDto.getNomeMae(), objDto.getNomePai(),
+                Sexo.toEnum(objDto.getSexo()), objDto.getMudancaEtapa(), endereco, Escolaridade.toEnum(objDto.getEscolaridade()),
+                objDto.getEtapa(), objDto.getCalendarioEtapa());
+        obj.setSenhaBypass(objDto.getSenha());
+        return obj;
     }
 
     public Administrador fromDTO() {

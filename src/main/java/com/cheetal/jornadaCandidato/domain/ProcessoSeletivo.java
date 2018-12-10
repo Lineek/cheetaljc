@@ -1,5 +1,6 @@
 package com.cheetal.jornadaCandidato.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
@@ -19,9 +20,11 @@ public class ProcessoSeletivo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date dataInicio;
 
-    private Date dateFim;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private Date dataFim;
 
 //    @NotEmpty(message = "Preenchimento obrigatório")
 //    @Length(min = 6, message = "O tamanho deve ser entre 6 e 120 caracteres")
@@ -34,8 +37,10 @@ public class ProcessoSeletivo implements Serializable {
     public ProcessoSeletivo() {
     }
 
-    public ProcessoSeletivo(Integer id, String descricao) {
+    public ProcessoSeletivo(Integer id, Date dataInicio, Date dataFim, String descricao) {
         this.id = id;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
         this.descricao = descricao;
     }
 
@@ -55,12 +60,12 @@ public class ProcessoSeletivo implements Serializable {
         this.dataInicio = dataInicio;
     }
 
-    public Date getDateFim() {
-        return dateFim;
+    public Date getDataFim() {
+        return dataFim;
     }
 
-    public void setDateFim(Date dateFim) {
-        this.dateFim = dateFim;
+    public void setDataFim(Date dataFim) {
+        this.dataFim = dataFim;
     }
 
     public String getDescricao() {

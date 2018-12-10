@@ -63,6 +63,8 @@ public abstract class Pessoa {
         this.senha = BCrypt.hashpw(senha, BCrypt.gensalt());
     }
 
+    public void setSenhaBypass(String senha) { this.senha = senha; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

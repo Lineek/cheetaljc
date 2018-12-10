@@ -21,7 +21,11 @@ public class Avaliacao implements Serializable {
     private Integer id;
 
     @NotEmpty(message = "Preenchimento obrigatório")
-    @Length(min = 6, message = "O tamanho deve ser entre 6 e 120 caracteres")
+    @Length(min = 4, message = "O tamanho deve ser entre 6 e 120 caracteres")
+    private String titulo;
+
+    @NotEmpty(message = "Preenchimento obrigatório")
+    @Length(min = 6, message = "O tamanho deve ser no mínimo 6 caracteres")
     private String descricao;
 
     @ManyToOne
@@ -41,8 +45,9 @@ public class Avaliacao implements Serializable {
     public Avaliacao() {
     }
 
-    public Avaliacao(Integer id, String descricao, Etapa etapa, Integer notaMaxima, Double peso) {
+    public Avaliacao(Integer id, String titulo, String descricao, Etapa etapa, Integer notaMaxima, Double peso) {
         this.id = id;
+        this.titulo = titulo;
         this.descricao = descricao;
         this.etapa = etapa;
         this.notaMaxima = notaMaxima;
@@ -100,5 +105,13 @@ public class Avaliacao implements Serializable {
     public int hashCode() {
 
         return Objects.hash(id);
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 }
