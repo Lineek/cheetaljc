@@ -90,7 +90,7 @@ public class JornadaCandidatoApplication implements CommandLineRunner {
         e3.getAvaliacaos().addAll(Arrays.asList(av1, av2));
         e4.getAvaliacaos().add(av4);
 
-        avaliacaoRepository.saveAll(Arrays.asList(av1, av2));
+        avaliacaoRepository.saveAll(Arrays.asList(av1, av2, av3, av4));
 
         Origem origem = new Origem(null, "Facebook");
         Origem origem2 = new Origem(null, "Eventos");
